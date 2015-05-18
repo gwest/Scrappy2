@@ -1,6 +1,7 @@
 ﻿namespace Scrappy2
 {
     using System;
+    using System.Data.Odbc;
     using System.IO;
     using System.Linq;
     using System.Text;
@@ -9,11 +10,13 @@
     public class Nfo
     {
         public string Name { get; set; }
+        public string Topic { get; set; }
         public XDocument XDocument { get; set; }
 
-        public Nfo(string name, XDocument xDocument)
+        public Nfo(string name, string topic, XDocument xDocument)
         {
             this.Name = name;
+            this.Topic = this.MakeValidFileName(topic);
             this.XDocument = xDocument;
         }
 
@@ -26,7 +29,15 @@
                 directory.Create();
             }
 
-            var fileName = directory.FullName + @"\" + this.MakeValidFileName(this.Name) + ".nfo";
+            var fileName = directory.FullName + @"\";
+
+            if (string.IsNullOrWhiteSpace(this.Topic))
+            {
+                fileName += this.Topic + @"\";
+            }
+
+            fileName += this.MakeValidFileName(this.Name) + ".nfo";
+
             this.XDocument.Save(fileName);
 
             Console.WriteLine("Saved to : " + fileName);
@@ -41,7 +52,7 @@
             {
                 builder.Append(cur);
             }
-            
+
             return builder.ToString();
         }
     }

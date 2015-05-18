@@ -16,9 +16,9 @@
 
         private static void SortCourse(Uri link, string newPath, string currentPath)
         {
-            Course course;   
-            
-            if (true)
+            Course course;
+
+            if (false)
             {
                 var courseScraper = new CourseScraper(link);
 
@@ -31,22 +31,22 @@
             {
                 course = new Course().FakeCourse();
             }
-            
+
             var plexNfoCreator = new PlexNfoCreator(course);
 
             var nfos = plexNfoCreator.BuildVideoNfos();
-            
+
             nfos.ForEach(x => Console.WriteLine(x.XDocument.ToString()));
 
             var courseNfo = plexNfoCreator.BuildCourseNfo();
             Console.WriteLine(courseNfo.XDocument);
-            
+
             var fileNameRenamer = new FileNameRenamer(nfos, currentPath, newPath, course.Name);
             fileNameRenamer.RenameFiles();
 
             Console.ReadLine();
         }
-        
+
         private static void PrintCourse(Course course)
         {
             Console.WriteLine(course.Name);
@@ -57,9 +57,9 @@
 
             foreach (var author in course.Authors)
             {
-                Console.WriteLine(author);    
+                Console.WriteLine(author);
             }
-            
+
             foreach (var topic in course.Topics)
             {
                 Console.WriteLine("\t" + topic.Name);

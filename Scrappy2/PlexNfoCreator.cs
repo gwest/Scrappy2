@@ -42,13 +42,13 @@
                     episodeDetails.Add(new XElement("credits"));
                     episodeDetails.Add(new XElement("director"));
                     episodeDetails.Add(new XElement("rating", course.Rating));
-                    
+
                     episodeDetails.Add(this.GetActors());
-                    
+
                     xml.Add(episodeDetails);
 
                     var name = string.Format("{0} - S{1}E{2} - {3}", course.Name, topicNumber + 1, videoNumber + 1, currentVideo);
-                    docs.Add(new Nfo(name, xml));
+                    docs.Add(new Nfo(name, currentTopic.Name, xml));
                 }
             }
 
@@ -74,15 +74,15 @@
             foreach (var tag in this.course.Tags)
             {
                 tvShow.Add(new XElement("genre", tag));
-            } 
-            
+            }
+
             tvShow.Add(new XElement("premiered", course.Released.ToString("yyyy-MM-dd")));
             tvShow.Add(new XElement("studio", "Pluralsight"));
             tvShow.Add(this.GetActors());
 
             xml.Add(tvShow);
 
-            return new Nfo("tvshow", xml);
+            return new Nfo("tvshow", "", xml);
         }
 
         private XElement GetActors()

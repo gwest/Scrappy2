@@ -29,8 +29,8 @@
                 var nfo = this.nfos[index];
                 var video = videos[index];
 
-                var directory = new DirectoryInfo(saveDirectory + this.courseName);
-                
+                var directory = new DirectoryInfo(saveDirectory + this.courseName + "/" + nfo.Topic);
+
                 if (!directory.Exists)
                 {
                     directory.Create();
