@@ -22,30 +22,51 @@
 
         public void RenameFiles()
         {
-            var videos = this.GetVideoFiles();
+            var files = this.GetFiles();
+            var videos = files.Where(x => x.Extension == ".mp4" || x.Extension == ".wmv").ToList();
 
             for (int index = 0; index < this.nfos.Count; index++)
             {
                 var nfo = this.nfos[index];
                 var video = videos[index];
 
-                var directory = new DirectoryInfo(saveDirectory + this.courseName + "/" + nfo.Topic);
+                var directory = new DirectoryInfo(saveDirectory + this.courseName + "/" + nfo.TopicNumber.ToString("D2") + " " + nfo.Topic);
 
                 if (!directory.Exists)
                 {
                     directory.Create();
                 }
 
-                video.MoveTo(saveDirectory + this.courseName + "/" + this.MakeValidFileName(nfo.Name) + ".mp4");
+                video.CopyTo(saveDirectory + this.courseName + "/" + nfo.TopicNumber.ToString("D2") + " " + nfo.Topic + "/" + this.MakeValidFileName(nfo.Name) + video.Extension);
                 nfo.Save(this.saveDirectory, courseName);
+            }
+
+            var otherFiles = files.Where(x => x.Extension != ".mp4" && x.Extension != ".wmv");
+
+            if (otherFiles.Any())
+            {
+                var courseDirectory = new DirectoryInfo(saveDirectory + this.courseName);
+
+                foreach (var file in otherFiles.ToList())
+                {
+                    var fileDirectory = file.DirectoryName.Replace(this.videoDirectory, "");
+                    courseDirectory = new DirectoryInfo(saveDirectory + this.courseName + "/" + fileDirectory);
+
+                    if (!courseDirectory.Exists)
+                    {
+                        courseDirectory.Create();
+                    }
+
+                    file.CopyTo(saveDirectory + this.courseName + "/" + fileDirectory + "/" + file.Name);
+                }
             }
         }
 
-        private List<FileInfo> GetVideoFiles()
+        private List<FileInfo> GetFiles()
         {
             var directory = new DirectoryInfo(this.videoDirectory);
 
-            return directory.GetFiles("*.mp4", SearchOption.AllDirectories).ToList();
+            return directory.GetFiles("*.*", SearchOption.AllDirectories).ToList();
         }
 
         private string MakeValidFileName(string name)

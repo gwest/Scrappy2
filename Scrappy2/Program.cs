@@ -2,7 +2,7 @@
 {
     using System;
 
-    internal class Program
+    public class Program
     {
         private static void Main(string[] args)
         {
@@ -14,11 +14,11 @@
             SortCourse(link, newPath, currentPath);
         }
 
-        private static void SortCourse(Uri link, string newPath, string currentPath)
+        public static void SortCourse(Uri link, string newPath, string currentPath)
         {
             Course course;
 
-            if (false)
+            if (true)
             {
                 var courseScraper = new CourseScraper(link);
 
@@ -39,6 +39,7 @@
             nfos.ForEach(x => Console.WriteLine(x.XDocument.ToString()));
 
             var courseNfo = plexNfoCreator.BuildCourseNfo();
+            courseNfo.Save(newPath, course.Name);
             Console.WriteLine(courseNfo.XDocument);
 
             var fileNameRenamer = new FileNameRenamer(nfos, currentPath, newPath, course.Name);
