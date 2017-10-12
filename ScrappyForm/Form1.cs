@@ -13,6 +13,7 @@
         private void button1_Click(object sender, EventArgs e)
         {
             Scrappy2.Program.SortCourse(new Uri(txtCourseUrl.Text), txtNewFolder.Text, txtCurrentFolder.Text);
+            Console.WriteLine("Done");
         }
     }
 }

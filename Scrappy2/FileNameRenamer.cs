@@ -38,7 +38,7 @@
                 }
 
                 video.CopyTo(saveDirectory + this.courseName + "/" + nfo.TopicNumber.ToString("D2") + " " + nfo.Topic + "/" + this.MakeValidFileName(nfo.Name) + video.Extension);
-                nfo.Save(this.saveDirectory, courseName);
+                nfo.Save(this.saveDirectory, this.courseName);
             }
 
             var otherFiles = files.Where(x => x.Extension != ".mp4" && x.Extension != ".wmv");

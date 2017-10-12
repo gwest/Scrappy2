@@ -47,7 +47,7 @@
 
                     xml.Add(episodeDetails);
 
-                    var name = string.Format("{0} - S{1}E{2} - {3}", course.Name, (topicNumber + 1).ToString("D2"), (videoNumber + 1).ToString("D2"), currentVideo);
+                    var name = string.Format("S{0}E{1} - {2}", (topicNumber + 1).ToString("D2"), (videoNumber + 1).ToString("D2"), currentVideo);
                     docs.Add(new Nfo(name, currentTopic.Name, topicNumber + 1, xml));
                 }
             }

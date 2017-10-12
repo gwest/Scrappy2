@@ -3,7 +3,7 @@
     using System;
 
     using OpenQA.Selenium;
-    using OpenQA.Selenium.Firefox;
+    using OpenQA.Selenium.Chrome;
 
     public class SeleniumDriver
     {
@@ -11,7 +11,7 @@
 
         public SeleniumDriver()
         {
-            this.driver = new FirefoxDriver();
+            this.driver = new ChromeDriver();
         }
 
         public string GetHtml(Uri uri)
